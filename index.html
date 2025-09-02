@@ -3,69 +3,299 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Your Name - Portfolio</title>
+  <title>Your Name - BTech Student Portfolio</title>
   <style>
+    /* Reset & Base Styles */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 0;
-      background: #f4f7f8;
-      color: #333;
+      background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+      color: #fff;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
     }
-    header {
-      background: #005f73;
-      color: white;
-      padding: 1.5rem;
-      text-align: center;
+    
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
-    header h1 {
-      margin: 0;
-      font-weight: 700;
-    }
-    nav a {
-      color: #caf0f8;
-      margin: 0 1rem;
-      text-decoration: none;
-      font-weight: 600;
-    }
-    nav a:hover {
-      text-decoration: underline;
-    }
-    main {
-      max-width: 900px;
-      margin: 2rem auto;
-      padding: 0 1rem;
-    }
-    section {
-      background: white;
-      padding: 1.5rem;
-      margin-bottom: 2rem;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-    h2 {
-      color: #0077b6;
-      margin-top: 0;
-    }
-    ul {
-      list-style-type: square;
-      padding-left: 1.5rem;
-    }
-    footer {
-      text-align: center;
-      padding: 1rem;
-      background: #005f73;
-      color: white;
+    
+    /* Floating particles background */
+    .particles {
       position: fixed;
-      bottom: 0;
+      top: 0;
+      left: 0;
       width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+    
+    .particle {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      animation: float 20s infinite linear;
+    }
+    
+    @keyframes float {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+    }
+    
+    /* Header Styles */
+    header {
+      background: rgba(0, 0, 0, 0.8);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: blur(15px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+    }
+    
+    header.scrolled {
+      padding: 0.5rem 2rem;
+      background: rgba(0, 0, 0, 0.95);
+    }
+    
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 800;
+      background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: logoShine 3s ease-in-out infinite;
+    }
+    
+    @keyframes logoShine {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin-left: 2rem;
+      font-weight: 600;
+      position: relative;
+      transition: all 0.3s ease;
+      padding: 0.5rem 0;
+    }
+    
+    nav a::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+      transition: width 0.3s ease;
+    }
+    
+    nav a:hover::before {
+      width: 100%;
+    }
+    
+    nav a:hover {
+      transform: translateY(-2px);
+      text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+    
+    /* Main Content */
+    main {
+      max-width: 1000px;
+      margin: 120px auto 100px;
+      padding: 0 2rem;
+    }
+    
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 4rem 0;
+      margin-bottom: 4rem;
+    }
+    
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 900;
+      margin-bottom: 1rem;
+      opacity: 0;
+      animation: fadeInUp 1s ease 0.5s forwards;
+    }
+    
+    .hero .subtitle {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeInUp 1s ease 1s forwards;
+    }
+    
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Section Styles */
+    section {
+      margin-bottom: 4rem;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 0.6s ease;
+    }
+    
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      transition: left 0.5s ease;
+    }
+    
+    .card:hover::before {
+      left: 100%;
+    }
+    
+    .card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+    
+    h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    /* Skills Grid */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    
+    .skill-item {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 1.5rem;
+      border-radius: 15px;
+      text-align: center;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .skill-item:hover {
+      background: rgba(255, 255, 255, 0.15);
+      transform: translateY(-5px);
+    }
+    
+    .skill-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      padding: 12px 30px;
+      background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 600;
+      margin: 0.5rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s ease;
+    }
+    
+    .btn:hover::before {
+      left: 100%;
+    }
+    
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+    
+    /* Footer */
+    footer {
+      background: rgba(0, 0, 0, 0.8);
+      text-align: center;
+      padding: 2rem;
+      backdrop-filter: blur(15px);
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.5rem; }
+      .hero .subtitle { font-size: 1.2rem; }
+      nav a { margin-left: 1rem; }
+      main { padding: 0 1rem; }
+      .skills-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Your Name</h1>
+  <!-- Floating particles -->
+  <div class="particles" id="particles"></div>
+
+  <header id="header">
+    <div class="logo">Your Name</div>
     <nav>
-      <a href="#about">About Me</a>
+      <a href="#about">About</a>
       <a href="#skills">Skills</a>
       <a href="#projects">Projects</a>
       <a href="#contact">Contact</a>
@@ -73,43 +303,162 @@
   </header>
 
   <main>
-    <section id="about">
+    <!-- Hero Section -->
+    <section class="hero">
+      <h1>BTech Student & Future Innovator</h1>
+      <p class="subtitle">Passionate about technology, coding, and building amazing things</p>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="card">
       <h2>About Me</h2>
-      <p>I am a final-year BTech student passionate about technology and leadership. My goal is to advance into managerial roles while leveraging my technical skills in Python API development and data management.</p>
+      <p>I'm a dedicated BTech student with a passion for technology and innovation. Currently pursuing my degree in [Your Branch], I love exploring new technologies, working on challenging projects, and continuously learning to stay ahead in the rapidly evolving tech landscape.</p>
+      <p>My goal is to leverage my technical skills and knowledge to create impactful solutions that make a difference in people's lives.</p>
     </section>
 
-    <section id="skills">
-      <h2>Skills</h2>
-      <ul>
-        <li>Python programming & API development with Flask</li>
-        <li>Data management and testing</li>
-        <li>Project management and team collaboration</li>
-        <li>Problem-solving and analytical thinking</li>
-      </ul>
+    <!-- Skills Section -->
+    <section id="skills" class="card">
+      <h2>Skills & Technologies</h2>
+      <div class="skills-grid">
+        <div class="skill-item">
+          <span class="skill-icon">💻</span>
+          <h3>Programming Languages</h3>
+          <p>Python, Java, C++, JavaScript</p>
+        </div>
+        <div class="skill-item">
+          <span class="skill-icon">🌐</span>
+          <h3>Web Development</h3>
+          <p>HTML, CSS, React, Node.js</p>
+        </div>
+        <div class="skill-item">
+          <span class="skill-icon">📊</span>
+          <h3>Data Science</h3>
+          <p>Machine Learning, Data Analysis</p>
+        </div>
+        <div class="skill-item">
+          <span class="skill-icon">🔧</span>
+          <h3>Tools & Frameworks</h3>
+          <p>Git, Docker, VS Code, Flask</p>
+        </div>
+      </div>
     </section>
 
-    <section id="projects">
+    <!-- Projects Section -->
+    <section id="projects" class="card">
       <h2>Projects</h2>
-      <p>I am working on establishing my ideas as a recognizable firm in India with plans to expand internationally.</p>
+      <p>Here are some of the exciting projects I've worked on during my academic journey:</p>
       <ul>
-        <li><strong>Project 1:</strong> Description of a key project or initiative</li>
-        <li><strong>Project 2:</strong> Description of another important project</li>
+        <li><strong>Project 1:</strong> Description of your first major project</li>
+        <li><strong>Project 2:</strong> Description of your second project</li>
+        <li><strong>Project 3:</strong> Description of your third project</li>
+        <li><strong>Final Year Project:</strong> Your capstone project description</li>
       </ul>
     </section>
 
-    <section id="contact">
-      <h2>Contact & Links</h2>
-      <p>Connect with me on:</p>
-      <ul>
-        <li><a href="https://www.linkedin.com/in/yourprofile" target="_blank" rel="noopener">LinkedIn</a></li>
-        <li><a href="https://github.com/yourusername" target="_blank" rel="noopener">GitHub</a></li>
-        <li><a href="mailto:your.email@example.com">Email</a></li>
-      </ul>
+    <!-- Contact Section -->
+    <section id="contact" class="card">
+      <h2>Let's Connect!</h2>
+      <p>I'm always excited to connect with fellow students, developers, and industry professionals.</p>
+      <div style="text-align: center; margin-top: 2rem;">
+        <a href="https://linkedin.com/in/yourprofile" class="btn" target="_blank">LinkedIn</a>
+        <a href="https://github.com/yourusername" class="btn" target="_blank">GitHub</a>
+        <a href="mailto:your.email@example.com" class="btn">Email Me</a>
+        <a href="your-resume.pdf" class="btn" target="_blank">Download Resume</a>
+      </div>
     </section>
   </main>
 
   <footer>
-    <p>© 2025 Your Name. All rights reserved.</p>
+    <p>&copy; 2025 Your Name. Built with passion and code ❤️</p>
   </footer>
+
+  <script>
+    // Create floating particles
+    function createParticles() {
+      const particles = document.getElementById('particles');
+      for (let i = 0; i < 50; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.animationDuration = Math.random() * 20 + 10 + 's';
+        particle.style.animationDelay = Math.random() * 20 + 's';
+        particle.style.width = particle.style.height = Math.random() * 10 + 5 + 'px';
+        particles.appendChild(particle);
+      }
+    }
+
+    // Scroll animations
+    function animateOnScroll() {
+      const sections = document.querySelectorAll('section');
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        const windowHeight = window.innerHeight;
+        const scrollTop = window.scrollY;
+        
+        if (scrollTop > (sectionTop - windowHeight + sectionHeight/3)) {
+          section.classList.add('visible');
+        }
+      });
+    }
+
+    // Header scroll effect
+    function handleHeaderScroll() {
+      const header = document.getElementById('header');
+      if (window.scrollY > 100) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    }
+
+    // Smooth scroll for navigation
+    document.querySelectorAll('nav a').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      });
+    });
+
+    // Initialize everything
+    window.addEventListener('load', () => {
+      createParticles();
+      animateOnScroll();
+    });
+
+    window.addEventListener('scroll', () => {
+      animateOnScroll();
+      handleHeaderScroll();
+    });
+
+    // Add some interactive cursor effects
+    document.addEventListener('mousemove', (e) => {
+      const cursor = document.querySelector('.cursor');
+      if (!cursor) {
+        const newCursor = document.createElement('div');
+        newCursor.className = 'cursor';
+        newCursor.style.cssText = `
+          position: fixed;
+          width: 20px;
+          height: 20px;
+          background: rgba(255, 255, 255, 0.3);
+          border-radius: 50%;
+          pointer-events: none;
+          z-index: 9999;
+          mix-blend-mode: difference;
+          transition: transform 0.1s ease;
+        `;
+        document.body.appendChild(newCursor);
+      }
+      
+      const cursor2 = document.querySelector('.cursor');
+      cursor2.style.left = e.clientX - 10 + 'px';
+      cursor2.style.top = e.clientY - 10 + 'px';
+    });
+  </script>
 </body>
 </html>
